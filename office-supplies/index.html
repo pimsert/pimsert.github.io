@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>เว็บตัวอย่างแบบเบสิก</title>
+  <meta name="description" content="หน้าเว็บ HTML/CSS/JS แบบง่ายๆ สำหรับทดลองขึ้นเว็บ" />
+  <style>
+    /* ====== สไตล์พื้นฐาน ไม่ใช้ไฟล์แยก ====== */
+    :root { --bg:#f7f8fa; --fg:#1f2937; --brand:#10b981; --muted:#6b7280; }
+    [data-theme="dark"] { --bg:#0f172a; --fg:#e5e7eb; --brand:#34d399; --muted:#94a3b8; }
+    html,body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans Thai", sans-serif; background:var(--bg); color:var(--fg); }
+    .container { max-width: 960px; margin: 0 auto; padding: 16px; }
+    header { position:sticky; top:0; background:var(--bg); border-bottom:1px solid #e5e7eb20; backdrop-filter: blur(6px); }
+    nav { display:flex; align-items:center; gap:12px; padding:12px 0; }
+    nav a { text-decoration:none; color:var(--fg); opacity:.8; }
+    nav a:hover { opacity:1; }
+    .brand { font-weight:700; color:var(--brand); }
+    .btn { display:inline-block; padding:10px 14px; border-radius:10px; border:1px solid var(--brand); color:var(--brand); background:transparent; cursor:pointer; }
+    .btn.filled { background:var(--brand); color:#fff; border-color:var(--brand); }
+    .hero { padding:48px 0; display:grid; gap:16px; }
+    .card { background:#ffffff10; border:1px solid #e5e7eb30; padding:16px; border-radius:16px; }
+    .grid { display:grid; gap:16px; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+    footer { margin-top:32px; padding:24px 0; font-size:14px; color:var(--muted); border-top:1px solid #e5e7eb20; }
+    input, textarea { width:100%; padding:10px; border-radius:10px; border:1px solid #e5e7eb60; background:#fff; color:#111; }
+    label { font-size:14px; color:var(--muted); display:block; margin-bottom:6px; }
+    .note { font-size:14px; color:var(--muted); }
+    .center { text-align:center; }
+    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; background:#00000012; padding:2px 6px; border-radius:6px; }
+  </style>
+</head>
+<body>
+  <!-- แถบเมนู -->
+  <header>
+    <div class="container">
+      <nav>
+        <span class="brand">My Basic Site</span>
+        <a href="#about">เกี่ยวกับ</a>
+        <a href="#features">ฟีเจอร์</a>
+        <a href="#contact">ติดต่อ</a>
+        <div style="flex:1"></div>
+        <button id="themeBtn" class="btn" aria-label="สลับโหมดแสง/มืด">สลับโหมด</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ฮีโร่ -->
+  <main class="container">
+    <section class="hero card center">
+      <h1>สวัสดี 👋 นี่คือหน้าเว็บ HTML เบสิก</h1>
+      <p class="note">ไฟล์เดียวจบ ใช้ HTML + CSS + JS นิดหน่อย</p>
+      <div style="display:flex; gap:8px; justify-content:center; margin-top:12px;">
+        <a class="btn filled" href="#features">ดูฟีเจอร์</a>
+        <a class="btn" href="#contact">ติดต่อเรา</a>
+      </div>
+    </section>
+
+    <!-- เกี่ยวกับ -->
+    <section id="about" class="card">
+      <h2>เกี่ยวกับเว็บนี้</h2>
+      <p>หน้านี้ทำมาเพื่อทดลอง <span class="kbd">index.html</span> ง่ายๆ สำหรับอัปขึ้นโฮสติ้ง เช่น GitHub Pages หรือ Firebase Hosting</p>
+      <ul>
+        <li>โครงสร้างพื้นฐานครบ: <strong>head / body / meta / title</strong></li>
+        <li>มี <strong>CSS</strong> ในตัว และปุ่มสลับโหมดสว่าง/มืด</li>
+        <li>มี <strong>JavaScript</strong> ง่ายๆ สำหรับโต้ตอบ</li>
+      </ul>
+    </section>
+
+    <!-- ฟีเจอร์ -->
+    <section id="features" class="card">
+      <h2>ฟีเจอร์เล็กๆ</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>เวลาปัจจุบัน</h3>
+          <p class="note">จาก JavaScript บนหน้า</p>
+          <p id="clock" style="font-weight:700; font-size:20px;">--:--:--</p>
+        </div>
+        <div class="card">
+          <h3>ตัวนับ</h3>
+          <p class="note">คลิกเพื่อเพิ่ม/ลด</p>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <button class="btn" id="dec">-</button>
+            <span id="count" class="kbd">0</span>
+            <button class="btn" id="inc">+</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>ข้อความแจ้งเตือน</h3>
+          <p class="note">ตัวอย่าง event</p>
+          <button class="btn" id="helloBtn">ทักทาย</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ฟอร์มติดต่อ (เดโม่ ไม่ส่งจริง) -->
+    <section id="contact" class="card">
+      <h2>ติดต่อเรา (เดโม่)</h2>
+      <form id="contactForm">
+        <div style="display:grid; gap:12px;">
+          <div>
+            <label for="name">ชื่อ</label>
+            <input id="name" name="name" placeholder="สมชาย ใจดี" required />
+          </div>
+          <div>
+            <label for="email">อีเมล</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" required />
+          </div>
+          <div>
+            <label for="msg">ข้อความ</label>
+            <textarea id="msg" name="msg" rows="4" placeholder="พิมพ์ข้อความของคุณที่นี่..."></textarea>
+          </div>
+          <div>
+            <button class="btn filled" type="submit">ส่งข้อความ (จำลอง)</button>
+          </div>
+          <p class="note">ฟอร์มนี้เป็นตัวอย่าง—จะไม่ส่งข้อมูลจริง แค่แสดงผลในคอนโซล</p>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container center">
+      © <span id="year"></span> My Basic Site • ทำเพื่อสอนและทดลอง
+    </div>
+  </footer>
+
+  <script>
+    // ====== JS ง่ายๆ ======
+    // นาฬิกา
+    const clockEl = document.getElementById('clock');
+    function tick() { clockEl.textContent = new Date().toLocaleTimeString(); }
+    setInterval(tick, 1000); tick();
+
+    // ตัวนับ
+    let n = 0;
+    const countEl = document.getElementById('count');
+    document.getElementById('inc').addEventListener('click', () => { n++; countEl.textContent = n; });
+    document.getElementById('dec').addEventListener('click', () => { n--; countEl.textContent = n; });
+
+    // ปุ่มทักทาย
+    document.getElementById('helloBtn').addEventListener('click', () => {
+      alert('สวัสดีจากหน้า HTML เบสิก!');
+    });
+
+    // ฟอร์ม (เดโม่)
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.target).entries());
+      console.log('Form data (demo):', data);
+      alert('รับข้อความ (จำลอง) แล้ว! ดูข้อมูลในคอนโซลของเบราว์เซอร์ได้เลย');
+      e.target.reset();
+    });
+
+    // ปีใน footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ธีมสว่าง/มืด
+    const themeBtn = document.getElementById('themeBtn');
+    const applyTheme = (t) => document.documentElement.setAttribute('data-theme', t);
+    const saved = localStorage.getItem('theme') || 'light';
+    applyTheme(saved);
+    themeBtn.addEventListener('click', () => {
+      const next = (document.documentElement.getAttribute('data-theme') === 'dark') ? 'light' : 'dark';
+      applyTheme(next); localStorage.setItem('theme', next);
+    });
+  </script>
+</body>
+</html>
