@@ -1,1 +1,70 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>Google Login Demo (Firebase v9)</title>
+</head>
+<body>
+  <h2>🔑 Google Login ด้วย Firebase v9</h2>
+
+  <button id="loginBtn">Login with Google</button>
+  <button id="logoutBtn">Logout</button>
+
+  <p id="status">ยังไม่ได้ล็อกอิน</p>
+
+  <!-- Firebase SDK (Modular v9+) -->
+  <script type="module">
+    // Import SDKs ที่ต้องใช้
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
+      from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+    // Firebase config ของคุณ
+    const firebaseConfig = {
+      apiKey: "AIzaSyDP2aMy4Bqp7eV5BS9h3PJkR7y7yXT9Ia8",
+      authDomain: "mathdatabase-5caee.firebaseapp.com",
+      projectId: "mathdatabase-5caee",
+      storageBucket: "mathdatabase-5caee.firebasestorage.app",
+      messagingSenderId: "13977267649",
+      appId: "1:13977267649:web:148c6113f9af3448d11340",
+      measurementId: "G-XSHKM6QEP8"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+
+    // ปุ่ม Login
+    document.getElementById("loginBtn").addEventListener("click", async () => {
+      const provider = new GoogleAuthProvider();
+      try {
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        document.getElementById("status").innerText =
+          `ล็อกอินแล้ว: ${user.displayName} (${user.email})`;
+      } catch (error) {
+        console.error("Error:", error);
+        alert("ล็อกอินไม่สำเร็จ: " + error.message);
+      }
+    });
+
+    // ปุ่ม Logout
+    document.getElementById("logoutBtn").addEventListener("click", async () => {
+      await signOut(auth);
+    });
+
+    // ตรวจสอบสถานะการล็อกอิน
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        document.getElementById("status").innerText =
+          `ล็อกอินแล้ว: ${user.displayName} (${user.email})`;
+      } else {
+        document.getElementById("status").innerText = "ยังไม่ได้ล็อกอิน";
+      }
+    });
+  </script>
+</body>
+</html>
 
